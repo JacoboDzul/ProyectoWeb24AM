@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoWeb24AM.Models;
+using ProyectoWeb24AM.Services.IServices;
 using System.Diagnostics;
 
 namespace ProyectoWeb24AM.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IArticuloServices _articuloServices;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IArticuloServices articuloServices)
         {
+            _articuloServices = articuloServices;
             _logger = logger;
         }
 
@@ -18,9 +21,10 @@ namespace ProyectoWeb24AM.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task <IActionResult> Privacy()
         {
-            return View();
+            var response = await _articuloServices.GetArticulos();
+            return View(response);
         }
 
         public IActionResult Contacto()

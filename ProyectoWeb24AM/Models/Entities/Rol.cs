@@ -6,6 +6,7 @@ namespace ProyectoWeb24AM.Models.Entities
     {
         [Key]
         public int PKRol {  get; set; }
+        [Required]
         public string Nombre { get; set; }
     }
 }

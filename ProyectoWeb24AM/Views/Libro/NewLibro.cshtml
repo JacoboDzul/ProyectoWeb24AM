@@ -1,0 +1,30 @@
+﻿@model ProyectoWeb24AM.Models.Entities.Libro
+
+@{
+    Layout = "_LayoutDashboard";
+}
+
+<h1>Nuevo Libro</h1>
+
+<form asp-action="Libro" asp-controller="NewLibro" method="post">
+    <div class="form-group">
+        <label asp-for="Titulo"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descripcion"></label>
+        <input asp-for="Descripcion" class="form-control" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

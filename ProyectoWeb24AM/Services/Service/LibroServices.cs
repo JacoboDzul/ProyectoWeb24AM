@@ -5,21 +5,22 @@ using ProyectoWeb24AM.Services.IServices;
 
 namespace ProyectoWeb24AM.Services.Service
 {
-    public class ArticuloServices : IArticuloServices
+    public class LibroServices : ILibroServices
     {
         private readonly ApplicationDBContext _context;
 
-        public ArticuloServices(ApplicationDBContext context)
-            
+        public LibroServices(ApplicationDBContext context)
         {
-            _context=context; //variable privada
+            _context = context; //variable privada
         }
-        public async Task<List<Articulo>> GetArticulos()
+        public async Task<List<Libro>> GetLibros()
         {
             try
             {
-                List<Articulo> articulos = await _context.Articulo.ToListAsync();
-                return articulos;
+                List<Libro> libros = await _context.Libros.ToListAsync();
+                return libros;
+              
+
             }
             catch (Exception ex)
             {
@@ -28,13 +29,12 @@ namespace ProyectoWeb24AM.Services.Service
             }
 
         }
-
-        public async Task<Articulo> GetByIdArticulo(int id)
+        public async Task<Libro> GetByIdLibro(int id)
         {
             try
             {
                 //Articulo response = await _context.Articulo.FindAsync(id);
-                Articulo response = await _context.Articulo.FirstOrDefaultAsync(x => x.PKArticulo == id);
+                Libro response = await _context.Libros.FirstOrDefaultAsync(x => x.PKLibro == id);
                 return response;
             }
             catch (Exception ex)
@@ -44,18 +44,18 @@ namespace ProyectoWeb24AM.Services.Service
             }
         }
 
-        public async Task<Articulo> CrearArticulo(Articulo i)
+        public async Task<Libro> CrearLibro(Libro i)
         {
             try
             {
-                Articulo request = new Articulo()
+                Libro request = new Libro()
                 {
-                    Nombre = i.Nombre,
+                    Titulo = i.Titulo,
                     Descripcion = i.Descripcion,
-                    Precio = i.Precio,
+                    Images = i.Images,
                 };
-                var result =  await _context.Articulo.AddAsync(request);
-                               _context.SaveChanges();
+                var result = await _context.Libros.AddAsync(request);
+                _context.SaveChanges();
                 return request;
             }
             catch (Exception ex)
@@ -65,24 +65,24 @@ namespace ProyectoWeb24AM.Services.Service
             }
         }
 
-        public bool EliminarArticulo(int id)
+        public bool EliminarLibro(int id)
         {
             try
             {
-                Articulo articuloToDelete = _context.Articulo.Find(id);
-               
-                if(articuloToDelete != null)
+                Libro libroToDelete = _context.Libros.Find(id);
+
+                if (libroToDelete != null)
                 {
-                    var res = _context.Articulo.Remove(articuloToDelete);
+                    var res = _context.Libros.Remove(libroToDelete);
                     _context.SaveChanges();
                     return true;
                 }
                 else
 
                 {
-                    throw new Exception("El artículo no existe");
+                    throw new Exception("El libro no existe");
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -90,21 +90,20 @@ namespace ProyectoWeb24AM.Services.Service
                 throw new Exception("Surgió un error" + ex.Message);
             }
         }
-        public async Task<Articulo> EditarArticulo(Articulo O)
+        public async Task<Libro> EditarLibro(Libro O)
         {
             try
             {
 
-                Articulo articulo = _context.Articulo.Find(O.PKArticulo);
+                Libro libro = _context.Libros.Find(O.PKLibro);
 
-                articulo.Nombre = O.Nombre;
-                articulo.Descripcion = O.Descripcion;
-                articulo.Precio = O.Precio;
+                libro.Titulo = O.Titulo;
+                libro.Descripcion = O.Descripcion;
+                libro.Images = O.Images;
 
-                _context.Entry(articulo).State = EntityState.Modified;
+                _context.Entry(libro).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-
-                return articulo;
+                return libro;
 
             }
             catch (Exception ex)

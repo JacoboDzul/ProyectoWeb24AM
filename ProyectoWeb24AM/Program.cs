@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;//*
-using ProyectoWeb24AM.Context;//*
+using Microsoft.EntityFrameworkCore;
+using ProyectoWeb24AM.Context;
+using ProyectoWeb24AM.Services.IServices;
 using ProyectoWeb24AM.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => 
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));//*
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 //Inyección de dependencias
-builder.Services.AddTransient<ArticuloServices, ArticuloServices>();
+builder.Services.AddTransient<IArticuloServices, ArticuloServices>();
+builder.Services.AddTransient<ILibroServices, LibroServices>();
+builder.Services.AddTransient<IUsuarioServices, UsuarioServices>();
+builder.Services.AddTransient<IRolServices, RolServices>();
+
 
 var app = builder.Build();
 

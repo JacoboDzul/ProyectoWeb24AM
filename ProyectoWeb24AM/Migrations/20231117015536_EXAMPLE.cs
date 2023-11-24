@@ -7,11 +7,26 @@
 namespace ProyectoWeb24AM.Migrations
 {
     /// <inheritdoc />
-    public partial class example : Migration
+    public partial class EXAMPLE : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Articulo",
+                columns: table => new
+                {
+                    PKArticulo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Articulo", x => x.PKArticulo);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Libros",
                 columns: table => new
@@ -50,7 +65,7 @@ namespace ProyectoWeb24AM.Migrations
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FKRol = table.Column<int>(type: "int", nullable: false)
+                    FKRol = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,8 +74,7 @@ namespace ProyectoWeb24AM.Migrations
                         name: "FK_Usuarios_Roles_FKRol",
                         column: x => x.FKRol,
                         principalTable: "Roles",
-                        principalColumn: "PKRol",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PKRol");
                 });
 
             migrationBuilder.InsertData(
@@ -75,7 +89,7 @@ namespace ProyectoWeb24AM.Migrations
             migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "PKUsuario", "Apellido", "FKRol", "Nombre", "Password", "UserName" },
-                values: new object[] { 1, "Cedeno", 1, "Raul", "1234", "RECSTEINS" });
+                values: new object[] { 1, "Dzul", 1, "Jacob", "1501", "MurderBunny" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_FKRol",
@@ -86,6 +100,9 @@ namespace ProyectoWeb24AM.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Articulo");
+
             migrationBuilder.DropTable(
                 name: "Libros");
 

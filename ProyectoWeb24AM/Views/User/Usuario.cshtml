@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProyectoWeb24AM.Models.Entities.Usuario>
+
+@{
+
+    Layout = "_LayoutDashboard";
+}
+
+
+<div class="row">
+    <div class="offset-10 col-4 mb-4">
+        <a asp-action="Crear" asp-controller="User" class="btn-success mx-auto btn-lg"> <i class="fa-solid fa-user"></i>Nuevo</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h1 class="text-white"><strong>Lista de Usuarios</strong></h1>
+
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    @if (Model.Count() > 0)
+                    {
+
+                        <table class="table table-bordered" id="tblUsuario" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> @Html.DisplayNameFor(x => x.Nombre)</th>
+                                    <th> @Html.DisplayNameFor(x => x.Apellido)</th>
+                                    <th>Usuario</th>
+                                    <th> @Html.DisplayNameFor(x => x.Password)</th>
+                                    <th>Rol</th>
+
+                                    <th> Acciones</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                }
+                                @foreach (var Item in Model)
+                                {
+                                    <tr>
+                                        <td> <span> @(i++)</span></td>
+                                        <th> @Html.DisplayFor(x => Item.Nombre)</th>
+                                        <td> @Html.DisplayFor(x => Item.Apellido)</td>
+                                        <td> @Html.DisplayFor(x => Item.UserName)</td>
+                                        <td> @Html.DisplayFor(x => Item.Password) </td>
+                                        <td>@Html.DisplayFor(x => Item.FKRol)</td>
+                                        <td>
+                                            <a class=" btn btn-warning" asp-action="Editar" asp-route-id=@Item.PKUsuario><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                            <a class=" btn btn-danger eliminar-usuario" data-id="@Item.PKUsuario"> <i class="fa-solid fa-delete-left"></i> Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    }
+                    else
+                    {
+                        <p>No hay registros</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

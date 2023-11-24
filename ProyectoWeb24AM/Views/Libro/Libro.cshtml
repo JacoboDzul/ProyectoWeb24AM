@@ -1,21 +1,24 @@
-﻿
-@model IEnumerable<ProyectoWeb24AM.Models.Entities.Articulo>
+﻿@model IEnumerable<ProyectoWeb24AM.Models.Entities.Libro>
 
 @{
-    
+
     Layout = "_LayoutDashboard";
 }
+<h1>
+    Vista de Libro
+</h1>
 
 <div class="row">
     <div class="offset-10 col-4 mb-4">
-        <a asp-action="NewArticulo" asp-controller="Articulo" class="btn-success mx-auto btn-lg"> <i class="fa-solid fa-user"></i>Nuevo</a>
+        <a asp-action="NewLibro" asp-controller="Libro" class="btn-success mx-auto btn-lg"> <i class="fa-solid fa-user"></i>Nuevo</a>
     </div>
 </div>
+
 <div class="container-fluid">
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark">
-                <h1 class="text-white"><strong>Lista de articulos</strong></h1>
+                <h1 class="text-white"><strong>Lista de libro</strong></h1>
 
             </div>
 
@@ -25,15 +28,15 @@
                     @if (Model.Count() > 0)
                     {
 
-                        <table class="table table-bordered" id="tblArticulo" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="tblLibro" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th> @Html.DisplayNameFor(x => x.PKArticulo)</th>
-                                    <th> @Html.DisplayNameFor(x => x.Nombre)</th>
-                                    <th> @Html.DisplayNameFor(x => x.Descripcion )</th>
-                                    <th> @Html.DisplayNameFor(x => x.Precio )</th>
-                                
+                                    <th> @Html.DisplayNameFor(x => x.PKLibro)</th>
+                                    <th> @Html.DisplayNameFor(x => x.Titulo)</th>
+                                    <th> @Html.DisplayNameFor(x => x.Descripcion)</th>
+                                    <th> @Html.DisplayNameFor(x => x.Images)</th>
+
                                     <th> Acciones</th>
                                 </tr>
 
@@ -46,13 +49,13 @@
                                 {
                                     <tr>
                                         <td> <span> @(i++)</span></td>
-                                        <th> @Html.DisplayFor(x => Item.PKArticulo)</th>
-                                        <td> @Html.DisplayFor(x => Item.Nombre )</td>
+                                        <th> @Html.DisplayFor(x => Item.PKLibro)</th>L
+                                        <td> @Html.DisplayFor(x => Item.Titulo)</td>
                                         <td> @Html.DisplayFor(x => Item.Descripcion )</td>
-                                        <td> @Html.DisplayFor(x => Item.Precio) </td>
+                                        <td> @Html.DisplayFor(x => Item.Images) </td>
                                         <td>
-                                            <a class=" btn btn-warning" asp-action="Editar" asp-route-id=@Item.PKArticulo><i class="fa-solid fa-pen-to-square"></i> Editar</a>
-                                            <a class=" btn btn-danger eliminar-articulo" data-id="@Item.PKArticulo"> <i class="fa-solid fa-delete-left"></i> Eliminar</a>
+                                            <a class=" btn btn-warning" asp-route-id=@Item.PKLibro><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                            <a class=" btn btn-danger eliminar-libro" data-id="@Item.PKLibro"> <i class="fa-solid fa-delete-left"></i> Eliminar</a>
                                         </td>
                                     </tr>
                                 }
@@ -74,11 +77,12 @@
 
 </div>
 
+
 @section Scripts{
     <script>
         $(document).ready(function () {
             //Llamar a datatable
-            $('#tblArticulo').DataTable({
+            $('#tblLibro').DataTable({
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -103,8 +107,8 @@
         });
 
 
-        $('.eliminar-articulo').on('click', function () {
-            //if (confirm('¿Estás seguro de que deseas eliminar este artículo?')) {}
+        $('.eliminar-libro').on('click', function () {
+            //if (confirm('¿Estás seguro de que deseas eliminar este libro?')) {}
 
 
             Swal.fire({
@@ -119,10 +123,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    var articuloId = $(this).data('id');
+                    var libroId = $(this).data('id');
 
                     $.ajax({
-                        url: '/Articulo/Eliminar/' + articuloId,
+                        url: '/Libro/Eliminar/' + libroId,
                         type: 'DELETE',
                         success: function (data) {
                             console.log(data)
@@ -150,13 +154,6 @@
 
 
         });
-    </script>
+    </script>
 
  }
-         
-
-    
-
-
-
-

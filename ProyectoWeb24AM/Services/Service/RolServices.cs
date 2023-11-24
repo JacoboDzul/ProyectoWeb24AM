@@ -5,36 +5,35 @@ using ProyectoWeb24AM.Services.IServices;
 
 namespace ProyectoWeb24AM.Services.Service
 {
-    public class ArticuloServices : IArticuloServices
+    public class RolServices:IRolServices
     {
         private readonly ApplicationDBContext _context;
 
-        public ArticuloServices(ApplicationDBContext context)
-            
+        public RolServices(ApplicationDBContext context)
         {
-            _context=context; //variable privada
+           _context = context;  
         }
-        public async Task<List<Articulo>> GetArticulos()
+
+        public async Task<List<Rol>> GetAll()
         {
             try
             {
-                List<Articulo> articulos = await _context.Articulo.ToListAsync();
-                return articulos;
+                var response = await _context.Roles.ToListAsync();
+                return response;
             }
             catch (Exception ex)
             {
 
-                throw new Exception("Surgió un error" + ex.Message);
+                throw;
             }
-
         }
 
-        public async Task<Articulo> GetByIdArticulo(int id)
+        public async Task<Rol> GetByIdRol(int id)
         {
             try
             {
                 //Articulo response = await _context.Articulo.FindAsync(id);
-                Articulo response = await _context.Articulo.FirstOrDefaultAsync(x => x.PKArticulo == id);
+                Rol response = await _context.Roles.FirstOrDefaultAsync(x => x.PKRol == id);
                 return response;
             }
             catch (Exception ex)
@@ -44,18 +43,17 @@ namespace ProyectoWeb24AM.Services.Service
             }
         }
 
-        public async Task<Articulo> CrearArticulo(Articulo i)
+        public async Task<Rol> CrearRol(Rol i)
         {
             try
             {
-                Articulo request = new Articulo()
+                Rol request = new Rol()
                 {
                     Nombre = i.Nombre,
-                    Descripcion = i.Descripcion,
-                    Precio = i.Precio,
+                    PKRol = i.PKRol,
                 };
-                var result =  await _context.Articulo.AddAsync(request);
-                               _context.SaveChanges();
+                var result = await _context.Roles.AddAsync(request);
+                _context.SaveChanges();
                 return request;
             }
             catch (Exception ex)
@@ -64,25 +62,24 @@ namespace ProyectoWeb24AM.Services.Service
                 throw new Exception("Surgió un error" + ex.Message);
             }
         }
-
-        public bool EliminarArticulo(int id)
+        public bool EliminarRol(int id)
         {
             try
             {
-                Articulo articuloToDelete = _context.Articulo.Find(id);
-               
-                if(articuloToDelete != null)
+                Rol RolesToDelete = _context.Roles.Find(id);
+
+                if (RolesToDelete != null)
                 {
-                    var res = _context.Articulo.Remove(articuloToDelete);
+                    var res = _context.Roles.Remove(RolesToDelete);
                     _context.SaveChanges();
                     return true;
                 }
                 else
 
                 {
-                    throw new Exception("El artículo no existe");
+                    throw new Exception("El libro no existe");
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -90,21 +87,19 @@ namespace ProyectoWeb24AM.Services.Service
                 throw new Exception("Surgió un error" + ex.Message);
             }
         }
-        public async Task<Articulo> EditarArticulo(Articulo O)
+        public async Task<Rol> EditarRol(Rol O)
         {
             try
             {
 
-                Articulo articulo = _context.Articulo.Find(O.PKArticulo);
+                Rol rol = _context.Roles.Find(O.PKRol);
 
-                articulo.Nombre = O.Nombre;
-                articulo.Descripcion = O.Descripcion;
-                articulo.Precio = O.Precio;
+                rol.Nombre = O.Nombre;
+                rol.PKRol = O.PKRol;
 
-                _context.Entry(articulo).State = EntityState.Modified;
+                _context.Entry(rol).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-
-                return articulo;
+                return rol;
 
             }
             catch (Exception ex)
@@ -112,5 +107,6 @@ namespace ProyectoWeb24AM.Services.Service
                 throw new Exception("Succedio un error " + ex.Message);
             }
         }
+
     }
 }

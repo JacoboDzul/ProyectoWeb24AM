@@ -18,7 +18,10 @@
 
   <ItemGroup>
     <Folder Include="Repository\" />
-    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\JavaScript.js" />
   </ItemGroup>
 
 </Project>
