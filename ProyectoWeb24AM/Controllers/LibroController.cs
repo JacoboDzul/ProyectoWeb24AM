@@ -18,7 +18,7 @@ namespace ProyectoWeb24AM.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AbrirEnNuevaVentana()
+        public async Task<IActionResult> Libro()
         {
             try
             {
@@ -32,6 +32,11 @@ namespace ProyectoWeb24AM.Controllers
                 // Manejar errores
                 throw new Exception("Sucedió un error" + ex.Message);
             }
+        }
+        public IActionResult Agregar()
+        {
+            // Lógica para preparar la vista Agregar
+            return View();
         }
 
         //Aquí inicia nuevo código
@@ -58,28 +63,27 @@ namespace ProyectoWeb24AM.Controllers
             var response = await _LibroServices.GetByIdLibro(id);
             return View(response);
         }
-
         [HttpPost]
         public async Task<IActionResult> Editar(Libro request)
         {
             var response = _LibroServices.EditarLibro(request);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Libro));  // Redirigir a la acción "Libro" en lugar de "Editar"
         }
 
         [HttpDelete]
         public IActionResult Eliminar(int id)
         {
             bool result = _LibroServices.EliminarLibro(id);
-            if (result = true)
+            if (result == true)  // Usar "=="
             {
-                return Json(new { succes = true });
+                return Json(new { success = true });
             }
             else
             {
-                return Json(new { succes = false });
+                return Json(new { success = false });
             }
-
         }
+
 
 
     }

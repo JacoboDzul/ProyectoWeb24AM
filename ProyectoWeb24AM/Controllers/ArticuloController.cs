@@ -37,6 +37,26 @@ namespace ProyectoWeb24AM.Controllers
                 throw new Exception("Sucedió un error" + ex.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> IndexCopia()
+        {
+            try
+            {
+
+                //var response = await _articuloServices.GetArticulos();
+
+                //return View(response);
+
+                return View(await _articuloServices.GetArticulos());
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Sucedió un error" + ex.Message);
+            }
+        }
 
         [HttpPost]
         public IActionResult Crear(Articulo request)

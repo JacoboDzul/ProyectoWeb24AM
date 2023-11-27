@@ -10,7 +10,8 @@
 
 <div class="row">
     <div class="offset-10 col-4 mb-4">
-        <a asp-action="NewLibro" asp-controller="Libro" class="btn-success mx-auto btn-lg"> <i class="fa-solid fa-user"></i>Nuevo</a>
+        <a asp-action="Agregar" asp-controller="Libro" class="btn-success mx-auto btn-lg">
+        <i class="fa-solid fa-user"></i>Nuevo</a>
     </div>
 </div>
 
@@ -54,7 +55,7 @@
                                         <td> @Html.DisplayFor(x => Item.Descripcion )</td>
                                         <td> @Html.DisplayFor(x => Item.Images) </td>
                                         <td>
-                                            <a class=" btn btn-warning" asp-route-id=@Item.PKLibro><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                            <a class=" btn btn-warning" asp-action="Editar" -route-id=@Item.PKLibro><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                             <a class=" btn btn-danger eliminar-libro" data-id="@Item.PKLibro"> <i class="fa-solid fa-delete-left"></i> Eliminar</a>
                                         </td>
                                     </tr>

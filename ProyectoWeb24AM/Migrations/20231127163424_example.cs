@@ -7,7 +7,7 @@
 namespace ProyectoWeb24AM.Migrations
 {
     /// <inheritdoc />
-    public partial class EXAMPLE : Migration
+    public partial class example : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,8 @@ namespace ProyectoWeb24AM.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UrlImagenPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

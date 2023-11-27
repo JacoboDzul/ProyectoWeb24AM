@@ -41,6 +41,10 @@ namespace ProyectoWeb24AM.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("UrlImagenPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("PKArticulo");
 
                     b.ToTable("Articulo");

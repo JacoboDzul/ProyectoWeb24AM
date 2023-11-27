@@ -6,7 +6,7 @@
 
 <h1>Nuevo Libro</h1>
 
-<form asp-action="Libro" asp-controller="NewLibro" method="post">
+<form asp-action="Crear" asp-controller="Libro" method="post">
     <div class="form-group">
         <label asp-for="Titulo"></label>
         <input asp-for="Titulo" class="form-control" />
@@ -22,6 +22,7 @@
     <div class="form-group">
         <label asp-for="Images"></label>
         <input asp-for="Images" class="form-control" />
+
         <span asp-validation-for="Images" class="text-danger"></span>
     </div>
 

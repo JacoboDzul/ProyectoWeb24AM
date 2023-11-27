@@ -12,8 +12,8 @@ using ProyectoWeb24AM.Context;
 namespace ProyectoWeb24AM.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20231117015536_EXAMPLE")]
-    partial class EXAMPLE
+    [Migration("20231127163424_example")]
+    partial class example
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,10 @@ namespace ProyectoWeb24AM.Migrations
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UrlImagenPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PKArticulo");
 
