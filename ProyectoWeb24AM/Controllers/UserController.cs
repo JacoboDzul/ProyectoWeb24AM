@@ -84,7 +84,7 @@ namespace ProyectoWeb24AM.Controllers
         [HttpPost]
         public async Task<IActionResult> Editar(Usuario request)
         {
-            var response = _UsuarioServices.EditarUser(request);
+            var response = await _UsuarioServices.EditarUser(request);
             return RedirectToAction(nameof(Usuario));
         }
 

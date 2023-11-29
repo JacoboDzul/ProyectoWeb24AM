@@ -2,6 +2,8 @@
 using ProyectoWeb24AM.Context;
 using ProyectoWeb24AM.Models.Entities;
 using ProyectoWeb24AM.Services.IServices;
+using Dapper;
+using System.Data;
 
 namespace ProyectoWeb24AM.Services.Service
 {
@@ -23,8 +25,11 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
-                List<Articulo> articulos = await _context.Articulo.ToListAsync();
-                return articulos;
+                //List<Articulo> articulos = await _context.Articulo.ToListAsync();
+                //return articulos;
+                var response = await _context.Database.GetDbConnection().QueryAsync<Articulo>("SpGetArticulos", new { }, commandType: CommandType.StoredProcedure);
+
+                return response.ToList();
             }
             catch (Exception ex)
             {

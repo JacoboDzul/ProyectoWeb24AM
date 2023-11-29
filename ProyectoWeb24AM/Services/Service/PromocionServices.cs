@@ -104,6 +104,10 @@ namespace ProyectoWeb24AM.Services.Service
                 promocion.Descuento = O.Descuento;
                 promocion.FechaInicio = O.FechaInicio;
                 promocion.FechaFin = O.FechaFin;
+                promocion.Articulo = O.Articulo;
+                promocion.FkArticulo = O.FkArticulo;
+            
+
 
                 _context.Entry(promocion).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

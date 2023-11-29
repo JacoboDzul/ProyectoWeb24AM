@@ -1,0 +1,34 @@
+﻿@model ProyectoWeb24AM.Models.Entities.Promocion
+
+@{
+    Layout = "_LayoutDashboard";
+}
+
+<h1>Nueva Promoción</h1>
+
+<form asp-action="Editar" asp-controller="Promocion" method="post">
+    <div class="form-group">
+        <label asp-for="Descuento">Descuento (%)</label>
+        <input asp-for="Descuento" class="form-control" />
+        <span asp-validation-for="Descuento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FechaInicio">Fecha de Inicio</label>
+        <input asp-for="FechaInicio" type="date" class="form-control" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FechaFin">Fecha de Fin</label>
+        <input asp-for="FechaFin" type="date" class="form-control" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FkArticulo" class="control-label"></label>
+        <input asp-for="FkArticulo" class="form-control" placeholder="Ingresa el rol" required />
+
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

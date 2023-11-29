@@ -75,7 +75,7 @@ namespace ProyectoWeb24AM.Controllers
         [HttpPost]
         public async Task<IActionResult> Editar(Promocion request)
         {
-            var response = await _PromocionServices.EditarPromotion(request);
+            var response = _PromocionServices.EditarPromotion(request);
             return RedirectToAction(nameof(Index));
         }
 
