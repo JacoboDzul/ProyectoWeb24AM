@@ -81,7 +81,7 @@ namespace ProyectoWeb24AM.Services.Service
                 else
 
                 {
-                    throw new Exception("El libro no existe");
+                    throw new Exception("El usuario no existe");
                 }
 
             }

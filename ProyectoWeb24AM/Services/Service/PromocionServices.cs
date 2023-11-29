@@ -27,11 +27,10 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
-                List<Promocion> promotions = await _context.Promocion
-                    .Include(p => p.Articulos)
-                    .ToListAsync();
 
-                return promotions;
+                var response = await _context.Promocion.Include(Y => Y.Articulo).ToListAsync();
+                return response;
+
             }
             catch (Exception ex)
             {
@@ -43,10 +42,7 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
-                Promocion response = await _context.Promocion
-                    .Include(p => p.Articulos) 
-                    .FirstOrDefaultAsync(x => x.PKPromocion == id);
-
+                Promocion response = await _context.Promocion.FirstOrDefaultAsync(x => x.PKPromocion == id);
                 return response;
             }
             catch (Exception ex)
@@ -66,13 +62,6 @@ namespace ProyectoWeb24AM.Services.Service
                     FechaFin = i.FechaFin,
                     FkArticulo = i.FkArticulo,
                 };
-
-                // Carga la propiedad de navegación Articulo antes de agregarla
-                if (i.FkArticulo.HasValue)
-                {
-                    request.Articulos = await _context.Articulo.FindAsync(i.FkArticulo.Value);
-                }
-
                 var result = await _context.Promocion.AddAsync(request);
                 _context.SaveChanges();
                 return request;

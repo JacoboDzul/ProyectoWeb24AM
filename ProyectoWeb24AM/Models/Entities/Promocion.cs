@@ -17,9 +17,9 @@ namespace ProyectoWeb24AM.Models.Entities
         [Required]
         public DateTime FechaFin { get; set; }
 
-        [ForeignKey("Articulos")]
+        [ForeignKey("Articulo")]
         public int? FkArticulo { get; set; }
-        public Articulo Articulos { get; set; }
+        public Articulo Articulo { get; set; }
 
 
     }

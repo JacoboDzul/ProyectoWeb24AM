@@ -1,6 +1,8 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.IdentityModel.Tokens;
+using ProyectoWeb24AM.Context;
 using ProyectoWeb24AM.Models.Entities;
 using ProyectoWeb24AM.Services.IServices;
 using System;
@@ -11,10 +13,12 @@ namespace ProyectoWeb24AM.Controllers
     public class PromocionController : Controller
     {
         private readonly IPromocionServices _PromocionServices;
+        private readonly ApplicationDBContext _context;
 
-        public PromocionController(IPromocionServices PromocionServices)
+        public PromocionController(IPromocionServices PromocionServices, ApplicationDBContext context)
         {
             _PromocionServices = PromocionServices;
+            _context=context;
         }
 
         [HttpGet]
@@ -46,9 +50,25 @@ namespace ProyectoWeb24AM.Controllers
         }
 
         [HttpGet]
+        public IActionResult Crear()
+        {
+            ViewBag.Articulo = _context.Articulo.Select(p => new SelectListItem()
+            {
+                Text = p.Nombre,
+                Value = p.PKArticulo.ToString()
+            });
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
             var response = await _PromocionServices.GetByIdPromotion(id);
+            ViewBag.Articulo = _context.Articulo.Select(p => new SelectListItem()
+            {
+                Text = p.Nombre,
+                Value = p.PKArticulo.ToString()
+            });
             return View(response);
         }
 

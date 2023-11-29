@@ -12,7 +12,7 @@ using ProyectoWeb24AM.Context;
 namespace ProyectoWeb24AM.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20231128162127_example")]
+    [Migration("20231129123638_example")]
     partial class example
     {
         /// <inheritdoc />
@@ -181,11 +181,11 @@ namespace ProyectoWeb24AM.Migrations
 
             modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Promocion", b =>
                 {
-                    b.HasOne("ProyectoWeb24AM.Models.Entities.Articulo", "Articulos")
+                    b.HasOne("ProyectoWeb24AM.Models.Entities.Articulo", "Articulo")
                         .WithMany()
                         .HasForeignKey("FkArticulo");
 
-                    b.Navigation("Articulos");
+                    b.Navigation("Articulo");
                 });
 
             modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Usuario", b =>

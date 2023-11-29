@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="offset-10 col-4 mb-4">
-        <a asp-action="NewPromocion" asp-controller="Promocion" class="btn-success mx-auto btn-lg">
+        <a asp-action="Crear" asp-controller="Promocion" class="btn-success mx-auto btn-lg">
             <i class="fa-solid fa-user"></i>Nuevo
         </a>
     </div>
@@ -34,9 +34,9 @@
                                     <th>@Html.DisplayNameFor(x => x.FechaInicio)</th>
                                     <th>@Html.DisplayNameFor(x => x.FechaFin)</th>
                                     <th>@Html.DisplayNameFor(x => x.FkArticulo)</th>
-                                    <th>@Html.DisplayNameFor(x => x.Articulos.Nombre)</th>
-                                    <th>@Html.DisplayNameFor(x => x.Articulos.Descripcion)</th>
-                                    <th>@Html.DisplayNameFor(x => x.Articulos.Precio)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulo.Nombre)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulo.Descripcion)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulo.Precio)</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -53,9 +53,9 @@
                                         <td>@Html.DisplayFor(x => item.FechaInicio)</td>
                                         <td>@Html.DisplayFor(x => item.FechaFin)</td>
                                         <td>@Html.DisplayFor(x => item.FkArticulo)</td>
-                                        <td>@Html.DisplayFor(x => item.Articulos.Nombre)</td>
-                                        <td>@Html.DisplayFor(x => item.Articulos.Descripcion)</td>
-                                        <td>@Html.DisplayFor(x => item.Articulos.Precio)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulo.Nombre)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulo.Descripcion)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulo.Precio)</td>
                                         <td>
                                             <a class="btn btn-warning" asp-action="Editar" asp-controller="Promocion" asp-route-id="@item.PKPromocion">
                                                 <i class="fa-solid fa-pen-to-square"></i> Editar
