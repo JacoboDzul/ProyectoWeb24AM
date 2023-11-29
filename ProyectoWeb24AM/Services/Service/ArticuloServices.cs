@@ -8,11 +8,16 @@ namespace ProyectoWeb24AM.Services.Service
     public class ArticuloServices : IArticuloServices
     {
         private readonly ApplicationDBContext _context;
+        private readonly IWebHostEnvironment _webHost;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public ArticuloServices(ApplicationDBContext context)
+        public ArticuloServices(ApplicationDBContext context, IHttpContextAccessor httpContext, IWebHostEnvironment webHost)
             
         {
-            _context=context; //variable privada
+            _httpContext = httpContext;
+            _webHost = webHost;
+            _context =context;
+            //variable privada
         }
         public async Task<List<Articulo>> GetArticulos()
         {
@@ -48,12 +53,17 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
+                var urlImagen = i.Img.FileName;
+                i.UrlImagenPath = @"Img/Articulos/" + urlImagen;
+
                 Articulo request = new Articulo()
                 {
                     Nombre = i.Nombre,
                     Descripcion = i.Descripcion,
                     Precio = i.Precio,
+                    UrlImagenPath = i.UrlImagenPath,
                 };
+                SubirImg(urlImagen);
                 var result =  await _context.Articulo.AddAsync(request);
                                _context.SaveChanges();
                 return request;
@@ -90,6 +100,7 @@ namespace ProyectoWeb24AM.Services.Service
                 throw new Exception("Surgió un error" + ex.Message);
             }
         }
+
         public async Task<Articulo> EditarArticulo(Articulo O)
         {
             try
@@ -111,6 +122,46 @@ namespace ProyectoWeb24AM.Services.Service
             {
                 throw new Exception("Succedio un error " + ex.Message);
             }
+        }
+
+
+        public bool SubirImg(string Img)
+        {
+            bool res = false;
+
+            try
+            {
+                string rutaprincipal = _webHost.WebRootPath;
+                var archivos = _httpContext.HttpContext.Request.Form.Files;
+
+                if (archivos.Count > 0 && !string.IsNullOrEmpty(archivos[0].FileName))
+                {
+
+                    var nombreArchivo = Img;
+                    var subidas = Path.Combine(rutaprincipal, "Img", "articulos");
+
+                    // Asegurarse de que el directorio de destino exista
+                    if (!Directory.Exists(subidas))
+                    {
+                        Directory.CreateDirectory(subidas);
+                    }
+
+                    var rutaCompleta = Path.Combine(subidas, nombreArchivo);
+
+                    using (var fileStream = new FileStream(rutaCompleta, FileMode.Create))
+                    {
+                        archivos[0].CopyTo(fileStream);
+                        res = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error al subir la imagen: {ex.Message}");
+            }
+
+            return res;
         }
     }
 }

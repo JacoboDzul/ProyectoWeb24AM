@@ -17,7 +17,8 @@ builder.Services.AddTransient<IArticuloServices, ArticuloServices>();
 builder.Services.AddTransient<ILibroServices, LibroServices>();
 builder.Services.AddTransient<IUsuarioServices, UsuarioServices>();
 builder.Services.AddTransient<IRolServices, RolServices>();
-
+builder.Services.AddTransient<IPromocionServices, PromocionServices>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

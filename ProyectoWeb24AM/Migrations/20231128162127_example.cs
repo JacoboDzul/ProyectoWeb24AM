@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -57,6 +58,27 @@ namespace ProyectoWeb24AM.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Promocion",
+                columns: table => new
+                {
+                    PKPromocion = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descuento = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FkArticulo = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Promocion", x => x.PKPromocion);
+                    table.ForeignKey(
+                        name: "FK_Promocion_Articulo_FkArticulo",
+                        column: x => x.FkArticulo,
+                        principalTable: "Articulo",
+                        principalColumn: "PKArticulo");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -93,6 +115,11 @@ namespace ProyectoWeb24AM.Migrations
                 values: new object[] { 1, "Dzul", 1, "Jacob", "1501", "MurderBunny" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Promocion_FkArticulo",
+                table: "Promocion",
+                column: "FkArticulo");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_FKRol",
                 table: "Usuarios",
                 column: "FKRol");
@@ -102,13 +129,16 @@ namespace ProyectoWeb24AM.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Articulo");
-
-            migrationBuilder.DropTable(
                 name: "Libros");
 
             migrationBuilder.DropTable(
+                name: "Promocion");
+
+            migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Articulo");
 
             migrationBuilder.DropTable(
                 name: "Roles");

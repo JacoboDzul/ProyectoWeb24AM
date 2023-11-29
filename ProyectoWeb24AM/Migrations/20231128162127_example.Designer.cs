@@ -12,7 +12,7 @@ using ProyectoWeb24AM.Context;
 namespace ProyectoWeb24AM.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20231127163424_example")]
+    [Migration("20231128162127_example")]
     partial class example
     {
         /// <inheritdoc />
@@ -76,6 +76,33 @@ namespace ProyectoWeb24AM.Migrations
                     b.HasKey("PKLibro");
 
                     b.ToTable("Libros");
+                });
+
+            modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Promocion", b =>
+                {
+                    b.Property<int>("PKPromocion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PKPromocion"));
+
+                    b.Property<decimal>("Descuento")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FkArticulo")
+                        .HasColumnType("int");
+
+                    b.HasKey("PKPromocion");
+
+                    b.HasIndex("FkArticulo");
+
+                    b.ToTable("Promocion");
                 });
 
             modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Rol", b =>
@@ -150,6 +177,15 @@ namespace ProyectoWeb24AM.Migrations
                             Password = "1501",
                             UserName = "MurderBunny"
                         });
+                });
+
+            modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Promocion", b =>
+                {
+                    b.HasOne("ProyectoWeb24AM.Models.Entities.Articulo", "Articulos")
+                        .WithMany()
+                        .HasForeignKey("FkArticulo");
+
+                    b.Navigation("Articulos");
                 });
 
             modelBuilder.Entity("ProyectoWeb24AM.Models.Entities.Usuario", b =>

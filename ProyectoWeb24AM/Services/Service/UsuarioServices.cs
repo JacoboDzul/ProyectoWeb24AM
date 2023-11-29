@@ -18,7 +18,7 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
-                var response = await _services.Usuarios.ToListAsync();
+                var response = await _services.Usuarios.Include(Y=>Y.Roles).ToListAsync();
                 return response;
             }
             catch (Exception)

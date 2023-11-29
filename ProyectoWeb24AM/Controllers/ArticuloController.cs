@@ -59,7 +59,7 @@ namespace ProyectoWeb24AM.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(Articulo request)
+        public IActionResult Crear([FromForm] Articulo request)
         {
             try
             {

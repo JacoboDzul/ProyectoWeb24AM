@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ProyectoWeb24AM.Models.Entities.Promocion>
+
+@{
+    Layout = "_LayoutDashboard";
+}
+
+<h1>Vista de Promociones</h1>
+
+<div class="row">
+    <div class="offset-10 col-4 mb-4">
+        <a asp-action="NewPromocion" asp-controller="Promocion" class="btn-success mx-auto btn-lg">
+            <i class="fa-solid fa-user"></i>Nuevo
+        </a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h1 class="text-white"><strong>Lista de promociones</strong></h1>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="tblPromocion" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Html.DisplayNameFor(x => x.PKPromocion)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Descuento)</th>
+                                    <th>@Html.DisplayNameFor(x => x.FechaInicio)</th>
+                                    <th>@Html.DisplayNameFor(x => x.FechaFin)</th>
+                                    <th>@Html.DisplayNameFor(x => x.FkArticulo)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulos.Nombre)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulos.Descripcion)</th>
+                                    <th>@Html.DisplayNameFor(x => x.Articulos.Precio)</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><span>@(i++)</span></td>
+                                        <th>@Html.DisplayFor(x => item.PKPromocion)</th>
+                                        <td>@Html.DisplayFor(x => item.Descuento)</td>
+                                        <td>@Html.DisplayFor(x => item.FechaInicio)</td>
+                                        <td>@Html.DisplayFor(x => item.FechaFin)</td>
+                                        <td>@Html.DisplayFor(x => item.FkArticulo)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulos.Nombre)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulos.Descripcion)</td>
+                                        <td>@Html.DisplayFor(x => item.Articulos.Precio)</td>
+                                        <td>
+                                            <a class="btn btn-warning" asp-action="Editar" asp-controller="Promocion" asp-route-id="@item.PKPromocion">
+                                                <i class="fa-solid fa-pen-to-square"></i> Editar
+                                            </a>
+                                            <a class="btn btn-danger eliminar-promocion" data-id="@item.PKPromocion">
+                                                <i class="fa-solid fa-delete-left"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No hay registros</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

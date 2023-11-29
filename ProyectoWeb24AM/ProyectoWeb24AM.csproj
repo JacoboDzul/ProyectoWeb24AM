@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Repository\" />
+    <Folder Include="wwwroot\img\Articulos\" />
   </ItemGroup>
 
   <ItemGroup>
