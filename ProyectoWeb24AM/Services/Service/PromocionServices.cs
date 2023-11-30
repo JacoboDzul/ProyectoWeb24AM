@@ -111,7 +111,6 @@ namespace ProyectoWeb24AM.Services.Service
 
                 _context.Entry(promocion).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-
                 return promocion;
             }
             catch (Exception ex)

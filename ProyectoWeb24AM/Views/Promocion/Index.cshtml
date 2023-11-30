@@ -29,11 +29,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>@Html.DisplayNameFor(x => x.PKPromocion)</th>
                                     <th>@Html.DisplayNameFor(x => x.Descuento)</th>
                                     <th>@Html.DisplayNameFor(x => x.FechaInicio)</th>
                                     <th>@Html.DisplayNameFor(x => x.FechaFin)</th>
-                                    <th>@Html.DisplayNameFor(x => x.FkArticulo)</th>
                                     <th>@Html.DisplayNameFor(x => x.Articulo.Nombre)</th>
                                     <th>@Html.DisplayNameFor(x => x.Articulo.Descripcion)</th>
                                     <th>@Html.DisplayNameFor(x => x.Articulo.Precio)</th>
@@ -48,11 +46,9 @@
                                 {
                                     <tr>
                                         <td><span>@(i++)</span></td>
-                                        <th>@Html.DisplayFor(x => item.PKPromocion)</th>
                                         <td>@Html.DisplayFor(x => item.Descuento)</td>
                                         <td>@Html.DisplayFor(x => item.FechaInicio)</td>
                                         <td>@Html.DisplayFor(x => item.FechaFin)</td>
-                                        <td>@Html.DisplayFor(x => item.FkArticulo)</td>
                                         <td>@Html.DisplayFor(x => item.Articulo.Nombre)</td>
                                         <td>@Html.DisplayFor(x => item.Articulo.Descripcion)</td>
                                         <td>@Html.DisplayFor(x => item.Articulo.Precio)</td>
@@ -60,9 +56,7 @@
                                             <a class="btn btn-warning" asp-action="Editar" asp-controller="Promocion" asp-route-id="@item.PKPromocion">
                                                 <i class="fa-solid fa-pen-to-square"></i> Editar
                                             </a>
-                                            <a class="btn btn-danger eliminar-promocion" data-id="@item.PKPromocion">
-                                                <i class="fa-solid fa-delete-left"></i> Eliminar
-                                            </a>
+                                            <a class=" btn btn-danger eliminar-promocion" data-id="@item.PKPromocion"> <i class="fa-solid fa-delete-left"></i> Eliminar</a>
                                         </td>
                                     </tr>
                                 }
@@ -78,3 +72,63 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.eliminar-promocion').on('click', function () {
+                var botonEliminar = $(this);
+
+                Swal.fire({
+                    title: "¿Estás seguro de que deseas eliminar esta promoción?",
+                    text: "No podrás revertir esto.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, deseo borrar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var promocionId = botonEliminar.data('id');
+
+                        $.ajax({
+                            url: '/Promocion/Eliminar/' + promocionId,
+                            type: 'DELETE',
+                            success: function (data) {
+                                console.log(data);
+
+                                if (data.success) {
+                                    // Eliminar la fila de la tabla
+                                    botonEliminar.closest('tr').remove();
+
+                                    Swal.fire({
+                                        title: "Eliminando",
+                                        text: "Ha sido eliminado correctamente.",
+                                        icon: "success",
+                                        timer: 4000
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Error",
+                                        text: "No se pudo eliminar la promoción.",
+                                        icon: "error",
+                                        timer: 4000
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "Se produjo un error al procesar la solicitud.",
+                                    icon: "error",
+                                    timer: 4000
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
