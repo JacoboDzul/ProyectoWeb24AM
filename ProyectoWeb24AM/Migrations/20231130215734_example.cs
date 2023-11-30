@@ -66,6 +66,7 @@ namespace ProyectoWeb24AM.Migrations
                     Descuento = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UrlImagenPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FkArticulo = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

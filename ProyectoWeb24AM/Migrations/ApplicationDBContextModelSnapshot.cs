@@ -95,6 +95,10 @@ namespace ProyectoWeb24AM.Migrations
                     b.Property<int?>("FkArticulo")
                         .HasColumnType("int");
 
+                    b.Property<string>("UrlImagenPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("PKPromocion");
 
                     b.HasIndex("FkArticulo");

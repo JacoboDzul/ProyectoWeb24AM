@@ -12,7 +12,7 @@ using ProyectoWeb24AM.Context;
 namespace ProyectoWeb24AM.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20231129123638_example")]
+    [Migration("20231130215734_example")]
     partial class example
     {
         /// <inheritdoc />
@@ -97,6 +97,10 @@ namespace ProyectoWeb24AM.Migrations
 
                     b.Property<int?>("FkArticulo")
                         .HasColumnType("int");
+
+                    b.Property<string>("UrlImagenPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PKPromocion");
 

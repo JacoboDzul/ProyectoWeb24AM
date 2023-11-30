@@ -40,7 +40,7 @@ namespace ProyectoWeb24AM.Controllers
         {
             try
             {
-                var response = await _PromocionServices.CreatePromotion(request);
+                var response =  _PromocionServices.CreatePromotion(request);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

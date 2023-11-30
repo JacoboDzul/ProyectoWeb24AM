@@ -55,13 +55,17 @@ namespace ProyectoWeb24AM.Services.Service
         {
             try
             {
+                var urlImagen = i.Img.FileName;
+                i.UrlImagenPath = @"Img/Articulos/" + urlImagen;
                 Promocion request = new Promocion()
                 {
                     Descuento = i.Descuento,
                     FechaInicio = i.FechaInicio,
                     FechaFin = i.FechaFin,
                     FkArticulo = i.FkArticulo,
+                    UrlImagenPath = i.UrlImagenPath,
                 };
+                SubirImg(urlImagen);
                 var result = await _context.Promocion.AddAsync(request);
                 _context.SaveChanges();
                 return request;
@@ -106,6 +110,7 @@ namespace ProyectoWeb24AM.Services.Service
                 promocion.FechaFin = O.FechaFin;
                 promocion.Articulo = O.Articulo;
                 promocion.FkArticulo = O.FkArticulo;
+                promocion.UrlImagenPath = O.UrlImagenPath;
             
 
 
@@ -117,6 +122,45 @@ namespace ProyectoWeb24AM.Services.Service
             {
                 throw new Exception("Surgió un error: " + ex.Message);
             }
+        }
+
+        public bool SubirImg(string Img)
+        {
+            bool res = false;
+
+            try
+            {
+                string rutaprincipal = _webHost.WebRootPath;
+                var archivos = _httpContext.HttpContext.Request.Form.Files;
+
+                if (archivos.Count > 0 && !string.IsNullOrEmpty(archivos[0].FileName))
+                {
+
+                    var nombreArchivo = Img;
+                    var subidas = Path.Combine(rutaprincipal, "Img", "Articulos");
+
+                    // Asegurarse de que el directorio de destino exista
+                    if (!Directory.Exists(subidas))
+                    {
+                        Directory.CreateDirectory(subidas);
+                    }
+
+                    var rutaCompleta = Path.Combine(subidas, nombreArchivo);
+
+                    using (var fileStream = new FileStream(rutaCompleta, FileMode.Create))
+                    {
+                        archivos[0].CopyTo(fileStream);
+                        res = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error al subir la imagen: {ex.Message}");
+            }
+
+            return res;
         }
     }
 }

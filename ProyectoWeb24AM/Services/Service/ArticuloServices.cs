@@ -116,6 +116,7 @@ namespace ProyectoWeb24AM.Services.Service
                 articulo.Nombre = O.Nombre;
                 articulo.Descripcion = O.Descripcion;
                 articulo.Precio = O.Precio;
+                articulo.UrlImagenPath = O.UrlImagenPath;
 
                 _context.Entry(articulo).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

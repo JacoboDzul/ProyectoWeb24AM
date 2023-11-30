@@ -17,9 +17,19 @@ namespace ProyectoWeb24AM.Models.Entities
         [Required]
         public DateTime FechaFin { get; set; }
 
+        [NotMapped]
+        [Display(Name = "Imagen")]
+
+        public IFormFile Img { get; set; }
+
+        public string UrlImagenPath { get; set; }
+
         [ForeignKey("Articulo")]
         public int? FkArticulo { get; set; }
         public Articulo Articulo { get; set; }
+
+
+        
 
 
     }
